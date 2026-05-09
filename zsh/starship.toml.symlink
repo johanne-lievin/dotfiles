@@ -1,0 +1,73 @@
+# =============================================================================
+# zsh/starship.toml.symlink → ~/.config/starship.toml
+# Minimal, fast, informative prompt
+# =============================================================================
+
+format = """
+$directory\
+$git_branch\
+$git_status\
+$nodejs\
+$golang\
+$rust\
+$docker_context\
+$cmd_duration\
+$line_break\
+$character"""
+
+[character]
+success_symbol = "[❯](bold green)"
+error_symbol = "[❯](bold red)"
+vimcmd_symbol = "[❮](bold yellow)"
+
+[directory]
+style = "bold blue"
+truncation_length = 4
+truncate_to_repo = true
+read_only = " 󰌾"
+
+[git_branch]
+symbol = " "
+style = "bold purple"
+truncation_length = 30
+
+[git_status]
+style = "bold red"
+ahead = "⇡${count}"
+behind = "⇣${count}"
+diverged = "⇕⇡${ahead_count}⇣${behind_count}"
+conflicted = "✖${count}"
+untracked = "?${count}"
+modified = "!${count}"
+staged = "+${count}"
+deleted = "✘${count}"
+
+[nodejs]
+symbol = " "
+style = "bold green"
+detect_files = ["package.json", ".nvmrc", ".node-version"]
+
+[golang]
+symbol = " "
+style = "bold cyan"
+
+[rust]
+symbol = " "
+style = "bold orange"
+
+[docker_context]
+symbol = " "
+style = "bold blue"
+only_with_files = true
+detect_files = ["docker-compose.yml", "docker-compose.yaml", "Dockerfile"]
+
+[cmd_duration]
+min_time = 2_000   # Show only if command took >2s
+style = "bold yellow"
+format = "took [$duration]($style) "
+
+[package]
+disabled = true   # Too noisy
+
+[python]
+disabled = true   # Enable if you use Python heavily

@@ -1,0 +1,96 @@
+# =============================================================================
+# git/gitconfig.symlink — Global git configuration
+# Symlinked to ~/.gitconfig
+# =============================================================================
+
+[user]
+  # Set these in ~/.gitconfig.local (not tracked in git)
+  # name  = Your Name
+  # email = you@example.com
+  # signingkey = YOUR_GPG_KEY
+
+[include]
+  # Local overrides: name, email, signingkey
+  path = ~/.gitconfig.local
+
+[core]
+  editor = nvim
+  excludesfile = ~/.gitignore_global
+  whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
+  pager = delta
+  autocrlf = input
+
+[color]
+  ui = auto
+
+[delta]
+  navigate = true       # n/N to move between diff sections
+  light = false
+  side-by-side = true
+  line-numbers = true
+  syntax-theme = Dracula
+
+[interactive]
+  diffFilter = delta --color-only
+
+[merge]
+  conflictstyle = zdiff3
+  tool = nvim
+
+[diff]
+  colorMoved = default
+  algorithm = histogram
+
+[pull]
+  rebase = true
+
+[push]
+  default = current
+  autoSetupRemote = true
+
+[rebase]
+  autoStash = true
+  updateRefs = true
+
+[fetch]
+  prune = true
+  pruneTags = true
+
+[branch]
+  sort = -committerdate   # Show most recently used branches first
+
+[tag]
+  sort = -version:refname
+
+[init]
+  defaultBranch = main
+
+[alias]
+  # Pretty log
+  lg = log --oneline --graph --decorate --all
+  # Last commit info
+  last = log -1 HEAD --stat
+  # Show all aliases
+  aliases = config --get-regexp alias
+  # Undo last commit (keep changes staged)
+  undo = reset HEAD~1 --soft
+  # Wipe last commit completely
+  wipe = reset HEAD~1 --hard
+  # List branches by last commit
+  branches = branch -a --sort=-committerdate
+  # Show what changed
+  today = log --since='midnight' --oneline --all
+  # Interactive rebase on last N commits
+  rebase-i = "!f() { git rebase -i HEAD~${1:-5}; }; f"
+  # Stash only staged changes
+  stash-staged = stash push --staged
+
+[credential]
+  helper = osxkeychain
+
+[gpg]
+  format = ssh
+
+[commit]
+  # Uncomment to sign all commits (requires GPG/SSH key set up)
+  # gpgsign = true

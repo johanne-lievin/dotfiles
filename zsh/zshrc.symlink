@@ -1,0 +1,86 @@
+# =============================================================================
+# ~/.zshrc — Main shell config
+# Architecture: Zach Holman's topic folder pattern
+# Each topic in ~/.dotfiles/<topic>/*.zsh is auto-sourced
+# =============================================================================
+
+export DOTFILES="$HOME/.dotfiles"
+
+# ── Path ─────────────────────────────────────────────────────────────────────
+export PATH="$HOME/.local/bin:$HOME/bin:/usr/local/bin:/opt/homebrew/bin:$PATH"
+
+# ── Auto-source all topic *.zsh files ────────────────────────────────────────
+# NULL_GLOB: unmatched globs expand to nothing instead of erroring
+setopt NULL_GLOB
+
+# Order: path.zsh first, completion.zsh last (Holman pattern)
+for topic_path_file in "$DOTFILES"/*/path.zsh; do
+  source "$topic_path_file"
+done
+
+for topic_file in "$DOTFILES"/**/*.zsh; do
+  case "$topic_file" in
+    */path.zsh) ;;       # already sourced
+    */completion.zsh) ;; # source after compinit
+    *) source "$topic_file" ;;
+  esac
+done
+
+# ── Completion ───────────────────────────────────────────────────────────────
+autoload -Uz compinit
+# Only rebuild completion cache once per day
+if [ "$(date +'%j')" != "$(stat -f '%Sm' -t '%j' ~/.zcompdump 2>/dev/null)" ]; then
+  compinit
+else
+  compinit -C
+fi
+
+# Source completion files after compinit
+for topic_completion_file in "$DOTFILES"/*/completion.zsh; do
+  source "$topic_completion_file"
+done
+
+unsetopt NULL_GLOB
+
+# ── Core options ─────────────────────────────────────────────────────────────
+setopt AUTO_CD              # Type a dir name to cd into it
+setopt CORRECT              # Suggest corrections for typos
+setopt HIST_IGNORE_DUPS     # Don't record duplicate commands
+setopt HIST_IGNORE_SPACE    # Don't record commands starting with space
+setopt SHARE_HISTORY        # Share history between sessions
+setopt EXTENDED_HISTORY     # Record timestamp
+setopt PUSHD_IGNORE_DUPS    # No duplicate dirs in stack
+
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=100000
+SAVEHIST=100000
+
+# ── Plugins (loaded via Homebrew) ─────────────────────────────────────────────
+source "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+source "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+source "$(brew --prefix)/share/zsh-history-substring-search/zsh-history-substring-search.zsh"
+
+# History substring search keybindings
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+
+# ── fzf ──────────────────────────────────────────────────────────────────────
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --preview "bat --color=always {}"'
+
+# ── zoxide (smart cd) ────────────────────────────────────────────────────────
+eval "$(zoxide init zsh)"
+
+# ── direnv ───────────────────────────────────────────────────────────────────
+eval "$(direnv hook zsh)"
+
+# ── Starship prompt ──────────────────────────────────────────────────────────
+eval "$(starship init zsh)"
+
+# ── Local overrides ──────────────────────────────────────────────────────────
+# Machine-specific config not tracked in git
+[ -f "$HOME/.zshrc.local" ] && source "$HOME/.zshrc.local"
+
+# Added by Windsurf
+export PATH="/Users/johanne/.codeium/windsurf/bin:$PATH"

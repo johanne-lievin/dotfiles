@@ -1,0 +1,69 @@
+# Global Claude Code Instructions
+
+## Identity & Stack
+- macOS developer. Primary stack: **JavaScript/TypeScript (Node, Bun)**, **Go**, **Rust**, **Docker/Kubernetes**
+- Package managers: `pnpm` for JS, `go mod` for Go, `cargo` for Rust
+- Editor: Neovim + Cursor
+- Terminal: Ghostty + zsh + starship
+- Use `eza` instead of `ls`, `bat` instead of `cat`, `fd` instead of `find`, `rg` instead of `grep`
+
+## Coding Preferences
+
+### General
+- Prefer explicit over implicit
+- Prefer composition over inheritance
+- Error messages must be actionable — always include *what went wrong* and *what to do about it*
+- No commented-out code in commits
+- No `TODO` without an explanation of why it's deferred
+
+### TypeScript / Node
+- TypeScript strict mode always
+- Named exports over default exports
+- Zod for runtime validation / schema definition
+- Prefer `async/await` over `.then()` chains
+- `pnpm` for package management, never `npm` or `yarn`
+- Biome for formatting/linting (not Prettier + ESLint separately)
+
+### Go
+- Return errors, don't panic
+- Wrap errors with `fmt.Errorf("context: %w", err)`
+- Table-driven tests with `t.Run()`
+- Prefer `context.Context` as first arg in functions that do I/O
+- `golangci-lint` must pass before committing
+
+### Rust
+- Prefer `thiserror` for library errors, `anyhow` for application errors
+- `clippy` must pass with no warnings
+- Document public APIs with `///` doc comments
+
+### Docker
+- Multi-stage builds always for production images
+- Non-root user in final stage
+- `.dockerignore` before `COPY . .`
+- Health checks in all service containers
+
+## Git Conventions
+- Conventional commits: `feat:`, `fix:`, `chore:`, `docs:`, `refactor:`, `test:`
+- Branch naming: `feat/short-description`, `fix/issue-number-description`
+- Never force-push to `main` or `master`
+- Squash fixup commits before merging
+
+## What NOT to do
+- Don't add dependencies without asking first
+- Don't reformat files unrelated to the current task
+- Don't create files I didn't ask for
+- Don't truncate output with "... (truncated for brevity)" — show everything
+- Don't explain what you're about to do, just do it
+- Don't use `console.log` for debugging in committed code — use proper logging
+
+## Shell & Commands
+- Default shell: `zsh`
+- Scripts: use `#!/usr/bin/env bash` with `set -euo pipefail`
+- Prefer `make` for project task runners
+- Use `direnv` for per-project env vars
+
+## Communication Style
+- Be concise. No preamble.
+- If something is ambiguous, ask one targeted question before proceeding
+- When showing diffs, use unified diff format
+- Code blocks must include the language identifier
