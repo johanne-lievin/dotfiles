@@ -3,7 +3,7 @@
 ## Identity & Stack
 - macOS developer. Primary stack: **JavaScript/TypeScript (Node, Bun)**, **Go**, **Rust**, **Docker/Kubernetes**
 - Package managers: `pnpm` for JS, `go mod` for Go, `cargo` for Rust
-- Editor: Neovim + Cursor
+- Editor: Neovim + Windsurf
 - Terminal: Ghostty + zsh + starship
 - Use `eza` instead of `ls`, `bat` instead of `cat`, `fd` instead of `find`, `rg` instead of `grep`
 

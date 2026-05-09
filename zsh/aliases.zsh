@@ -92,8 +92,7 @@ alias hidefiles="defaults write com.apple.finder AppleShowAllFiles NO && killall
 alias v="nvim"
 alias vi="nvim"
 alias vim="nvim"
-alias code="cursor"  # prefer Cursor over VS Code — swap if needed
-
+alias code="windsurf"
 # ── Utilities ────────────────────────────────────────────────────────────────
 alias week="date +%V"
 alias timestamp="date -u +'%Y-%m-%dT%H:%M:%SZ'"
