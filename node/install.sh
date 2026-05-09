@@ -10,9 +10,9 @@ fnm install --lts
 fnm use lts-latest
 fnm default lts-latest
 
-# Global packages — keep minimal, prefer per-project
+# Global packages — skip anything already managed by Homebrew (pnpm, etc.)
+# Use --force only for packages that won't conflict
 npm install -g \
-  pnpm \
   tsx \
   typescript \
   @biomejs/biome \
@@ -25,3 +25,4 @@ npm install -g \
   depcheck
 
 echo "Node.js $(node --version) ready with global packages."
+echo "Note: pnpm is managed by Homebrew — skipped here."

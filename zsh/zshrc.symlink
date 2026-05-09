@@ -7,7 +7,7 @@
 export DOTFILES="$HOME/.dotfiles"
 
 # ── Path ─────────────────────────────────────────────────────────────────────
-export PATH="$HOME/.local/bin:$HOME/bin:/usr/local/bin:/opt/homebrew/bin:$PATH"
+export PATH="$DOTFILES/bin:$HOME/.local/bin:$HOME/bin:/usr/local/bin:/opt/homebrew/bin:$PATH"
 
 # ── Auto-source all topic *.zsh files ────────────────────────────────────────
 # NULL_GLOB: unmatched globs expand to nothing instead of erroring
@@ -82,5 +82,6 @@ eval "$(starship init zsh)"
 # Machine-specific config not tracked in git
 [ -f "$HOME/.zshrc.local" ] && source "$HOME/.zshrc.local"
 
-# Added by Windsurf
-export PATH="/Users/johanne/.codeium/windsurf/bin:$PATH"
+# ── Dotfiles status check ─────────────────────────────────────────────────────
+# Runs silently — only prints if there's drift to report
+bash "$DOTFILES/bin/dots-status.sh" 2>/dev/null || true
