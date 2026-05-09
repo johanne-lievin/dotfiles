@@ -4,6 +4,7 @@
 # =============================================================================
 
 [user]
+	signingkey = /Users/johanne/.ssh/id_ed25519.pub
   # Set these in ~/.gitconfig.local (not tracked in git)
   # name  = Your Name
   # email = you@example.com
@@ -92,5 +93,6 @@
   format = ssh
 
 [commit]
+	gpgsign = true
   # Uncomment to sign all commits (requires GPG/SSH key set up)
   # gpgsign = true
