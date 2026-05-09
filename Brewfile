@@ -76,7 +76,6 @@ brew "zsh-history-substring-search"
 # ── Editors ─────────────────────────────────────────────────────────────────
 brew "neovim"
 cask "visual-studio-code"
-cask "cursor"
 cask "windsurf"           # Windsurf AI editor
 
 # ── Terminals ───────────────────────────────────────────────────────────────
