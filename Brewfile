@@ -107,3 +107,4 @@ cask "rectangle"          # Window snapping
 cask "istat-menus"
 cask "imageoptim"
 cask "keka"               # Archive utility
+brew "opencode"
